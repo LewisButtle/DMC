@@ -48,15 +48,15 @@ public class Main {
 		glfwWindowHint(GLFW_RESIZABLE, GLFW_TRUE); // the window will be resizable
 
 		// Create the window
-		window = glfwCreateWindow(300, 300, "Hello World!", NULL, NULL);
+		window = glfwCreateWindow(1200, 800, "Dance Mat Calculator", NULL, NULL);
 		if ( window == NULL )
 			throw new RuntimeException("Failed to create the GLFW window");
-
+        
 		// Setup a key callback. It will be called every time a key is pressed, repeated or released.
 		glfwSetKeyCallback(window, (window, key, scancode, action, mods) -> {
 			if ( key == GLFW_KEY_ESCAPE && action == GLFW_RELEASE )
 				glfwSetWindowShouldClose(window, true); // We will detect this in the rendering loop
-		});
+            });
 
 		// Get the thread stack and push a new frame
 		try ( MemoryStack stack = stackPush() ) {
@@ -95,12 +95,26 @@ public class Main {
 		GL.createCapabilities();
 
 		// Set the clear color
-		glClearColor(1.0f, 0.0f, 0.0f, 0.0f);
+		glClearColor(1.0f, 1.0f, 0.0f, 0.0f);
 
 		// Run the rendering loop until the user has attempted to close
 		// the window or has pressed the ESCAPE key.
 		while ( !glfwWindowShouldClose(window) ) {
-			glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT); // clear the framebuffer
+            
+            glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT); // clear the framebuffer
+            float[] vertex[] = 
+            {
+                {-0.5f, -0.5f},
+                 {0.5f, -0.5f},
+                 {0.0f,  0.5f}
+            };
+            glColor3f(0.0f, 0.0f, 1.0f);
+            glBegin(GL_LINE_LOOP);
+                for (int i=0; i<3;i++){
+                    glVertex2fv(vertex[i]);
+                }
+            glEnd();
+            glFlush(); 
 
 			glfwSwapBuffers(window); // swap the color buffers
 

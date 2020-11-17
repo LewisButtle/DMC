@@ -24,8 +24,12 @@ public class Main {
 		window = new Window("Dance Mat Calculator", 600, 480);
 		window.init();
 		renderer = new Renderer();
-		renderer.init();
-
+		try {
+			renderer.init();
+		}
+	 	catch (Exception excp) {
+			excp.printStackTrace();
+		}
 		loop();
 
 		// Free the window callbacks and destroy the window
@@ -50,7 +54,7 @@ public class Main {
 			} else {
 				window.setClearColor(0.0f, 0.0f, 1.0f, 0.0f);
 			}
-			renderer.clear();
+			renderer.render(window);
 			window.update(); // swap the color buffers
 		}
 	}

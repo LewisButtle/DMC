@@ -8,7 +8,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.awt.BasicStroke;
-import java.util.Random;
+import java.awt.Font;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.Timer;
@@ -34,7 +34,11 @@ class Surface extends JPanel implements ActionListener {
     }
 
     private void doDrawing(Graphics g) {
+		mainMenuScreen(g);
 
+    }
+
+	public void mainMenuScreen(Graphics g) {
 		Graphics2D g2d = (Graphics2D) g;
 		
         int w = getWidth();
@@ -62,7 +66,27 @@ class Surface extends JPanel implements ActionListener {
 		g2d.drawRect(w/2-400, h/2-50, 800, 100);
 		g2d.drawRect(w/2-400, h/2+100, 800, 100);
 		g2d.drawRect(w/2-400, h/2+250, 800, 100);
+		
+		//text
+		g2d.setPaint(new Color(186, 131, 20));
+		g2d.setFont(new Font("Ebrima Bold", Font.PLAIN, 80));
+		g2d.drawString("Dance Mat Calculator", w/2-400, h/2-310);
+		g2d.setPaint(Color.black);
+		g2d.setFont(new Font("Ebrima Bold", Font.PLAIN, 60));
+		g2d.drawString("Calculator Mode", w/2-250, h/2-125);
+		g2d.drawString("Floating Numbers", w/2-250, h/2+25);
+		g2d.drawString("Speed Numbers", w/2-250, h/2+175);
+		g2d.drawString("View Leaderboards", w/2-250, h/2+325);
 
+		g2d.setFont(new Font("Ebrima Bold", Font.PLAIN, 100));
+		g2d.setPaint(Color.red);
+		g2d.drawString("2", w/2-470, h/2-115);
+		g2d.setPaint(Color.green);
+		g2d.drawString("3", w/2-470, h/2+35);
+		g2d.setPaint(Color.blue);
+		g2d.drawString("4", w/2-470, h/2+185);
+		g2d.setPaint(Color.red);
+		g2d.drawString("5", w/2-470, h/2+335);
 		//Left diagonal rectangles
 		g2d.rotate(Math.PI/4-0.2);
 		g2d.setPaint(Color.red);
@@ -72,6 +96,7 @@ class Surface extends JPanel implements ActionListener {
 		g2d.setPaint(Color.blue);
 		g2d.fillRect(200, -200, 100, 700);
 
+		/*
 		g2d.setPaint(Color.black);
         Random r = new Random();
         for (int i = 0; i < 2000; i++) {
@@ -80,9 +105,9 @@ class Surface extends JPanel implements ActionListener {
             int y = Math.abs(r.nextInt()) % h;
             g2d.drawLine(x, y, x, y);
 		}
-		
+		*/
 		g2d.dispose();
-    }
+	}
 
     @Override
     public void paintComponent(Graphics g) {

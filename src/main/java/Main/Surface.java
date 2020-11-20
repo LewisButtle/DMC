@@ -11,13 +11,13 @@ import javax.swing.Timer;
 
 class Surface extends JPanel implements ActionListener {
 
-	public int screen;// = 0;
+	private int screen;
     private final int DELAY = 150;
 	private Timer timer;
 
-    public Surface() {
+    public Surface(int screennum) {
 		initTimer();
-		this.screen = 0;
+		this.screen = screennum;
     }
 
     private void initTimer() {
@@ -32,12 +32,24 @@ class Surface extends JPanel implements ActionListener {
     }
 
     private void doDrawing(Graphics g) {
-		if (screen == 1) {
-			mainMenuScreen(g);
-		}
+		
+		switch(screen) {
+			case 0:
+				  mainMenuScreen(g);
+				  System.out.println("Case0");
+			  	break;
+			case 1:
+				System.out.println("case1");
+				Graphics2D g2d = (Graphics2D) g;
+				g2d.setColor(Color.blue);
+				g2d.fillRect(200, 200, 500, 500);
+			  	break;
+			default:
+			  	// code block
+		  }
     }
 
-	public void mainMenuScreen(Graphics g) {
+	private void mainMenuScreen(Graphics g) {
 		Graphics2D g2d = (Graphics2D) g;
 		
         int w = getWidth();

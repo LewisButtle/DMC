@@ -280,7 +280,7 @@ public class Main extends JFrame {
    
     private void initViewLeaderboards() {
         viewLeaderboards = new Surface(4);
-        viewLeaderboards.addKeyListener(new KeyAdapter() {
+        addKeyListener(new KeyAdapter() {
 			@Override
 			public void keyPressed(KeyEvent e) {
                 switch(e.getKeyCode()) {
@@ -312,7 +312,13 @@ public class Main extends JFrame {
                     
                         break;
                     case '9':
-                    
+                    System.out.println("HIYA");
+                    viewLeaderboards.setVisible(false);
+                    remove(viewLeaderboards);
+                    add(mainMenu);
+                    mainMenu.setVisible(true);
+                    mainMenu.repaint();
+                    mainMenu.revalidate();
                         break;
                     case '*':
                     

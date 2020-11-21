@@ -35,15 +35,29 @@ class Surface extends JPanel implements ActionListener {
 		
 		switch(screen) {
 			case 0:
-				  mainMenuScreen(g);
-				  System.out.println("Case0");
+				mainMenuScreen(g);
+				System.out.println("case0");
 			  	break;
 			case 1:
+				calculatorModeScreen(g);
 				System.out.println("case1");
-				Graphics2D g2d = (Graphics2D) g;
-				g2d.setColor(Color.blue);
-				g2d.fillRect(200, 200, 500, 500);
-			  	break;
+				break;
+			case 2:
+				floatingNumbersScreen(g);
+				System.out.println("case2");
+				break;
+			case 3:
+				speedNumbersScreen(g);
+				System.out.println("case3");
+				break;
+			case 4:
+				viewLeaderboardsScreen(g);
+				System.out.println("case4");
+				break;	
+			case 5:
+				enterLeaderboardsScreen(g);
+				System.out.println("case5");
+				break;
 			default:
 			  	// code block
 		  }
@@ -120,7 +134,146 @@ class Surface extends JPanel implements ActionListener {
 		g2d.dispose();
 	}
 
-    @Override
+	private void calculatorModeScreen(Graphics g) {
+		Graphics2D g2d = (Graphics2D) g;
+		int w = getWidth();
+		int h = getHeight();
+		//rectangles
+		g2d.setColor(Color.YELLOW);
+		g2d.fillRect(0, 0, w, h);
+		g2d.setPaint(Color.blue);
+		g2d.fillRect(0, h-100, w, 100);
+		g2d.fillRect(0, 0, w, 100);
+		g2d.setPaint(Color.green);
+		g2d.fillRect(0, h-200, w, 100);
+		g2d.fillRect(0, 100, w, 100);
+		g2d.setPaint(Color.red);
+		g2d.fillRect(0, h-300, w, 100);
+		g2d.fillRect(0, 200, w, 100);
+
+		//Expression Box
+		BasicStroke bs1 = new BasicStroke(5, BasicStroke.CAP_ROUND, BasicStroke.JOIN_BEVEL);
+		g2d.setStroke(bs1);
+		g2d.setColor(new Color(247, 245, 116));
+		g2d.fillRect(w/2-700, h/2-75, 1300, 150);
+		g2d.setPaint(Color.black);
+		g2d.drawRect(w/2-700, h/2-75, 1300, 150);
+
+		//Text
+		g2d.setFont(new Font("Ebrima Bold", Font.PLAIN, 80));
+		g2d.drawString("EXPRESSION PLACEHOLDER", w/2-700, h/2+25);
+
+		g2d.setFont(new Font("Ebrima Bold", Font.PLAIN, 20));
+		g2d.setPaint(new Color(0, 204, 255));
+		g2d.drawString("Press 'Start' to return to Main Menu", 5, 20);
+
+		g2d.dispose();
+	}
+	
+	private void floatingNumbersScreen(Graphics g) {
+		Graphics2D g2d = (Graphics2D) g;
+		int w = getWidth();
+		int h = getHeight();
+
+		g2d.setColor(Color.YELLOW);
+		g2d.fillRect(0, 0, w, h);
+		g2d.setPaint(Color.blue);
+		g2d.fillRect(0, 0, w, 50);
+		g2d.setPaint(Color.green);
+		g2d.fillRect(0, 50, w, 50);
+		g2d.setPaint(Color.red);
+		g2d.fillRect(0, 100, w, 50);
+
+		BasicStroke bs1 = new BasicStroke(5, BasicStroke.CAP_ROUND, BasicStroke.JOIN_BEVEL);
+		g2d.setStroke(bs1);
+		g2d.setColor(new Color(247, 245, 116));
+		g2d.fillRect(w/2-500, 10, 1000, 125);
+		g2d.setPaint(Color.black);
+		g2d.drawRect(w/2-500, 10, 1000, 125);
+
+		g2d.setFont(new Font("Ebrima Bold", Font.PLAIN, 80));
+		g2d.drawString("TIMER", 25, 100);
+		g2d.drawString("SCORE", w-285, 100);
+		
+
+		g2d.dispose();
+	}
+	
+	private void speedNumbersScreen(Graphics g) {
+		Graphics2D g2d = (Graphics2D) g;
+		int w = getWidth();
+		int h = getHeight();
+
+		g2d.setColor(Color.YELLOW);
+		g2d.fillRect(0, 0, w, h);
+		g2d.setPaint(Color.blue);
+		g2d.fillRect(0, 0, w, 50);
+		g2d.setPaint(Color.green);
+		g2d.fillRect(0, 50, w, 50);
+		g2d.setPaint(Color.red);
+		g2d.fillRect(0, 100, w, 50);
+
+		BasicStroke bs1 = new BasicStroke(5, BasicStroke.CAP_ROUND, BasicStroke.JOIN_BEVEL);
+		g2d.setStroke(bs1);
+		g2d.setColor(new Color(247, 245, 116));
+		g2d.fillRect(w/2-500, 10, 1000, 125);
+		g2d.setPaint(Color.black);
+		g2d.drawRect(w/2-500, 10, 1000, 125);
+		g2d.dispose();
+	}
+
+	private void viewLeaderboardsScreen(Graphics g) {
+		Graphics2D g2d = (Graphics2D) g;
+		int w = getWidth();
+		int h = getHeight();
+
+		g2d.setColor(Color.YELLOW);
+		g2d.fillRect(0, 0, w, h);
+		g2d.setPaint(Color.blue);
+		g2d.fillRect(0, 0, w, 50);
+		g2d.setPaint(Color.green);
+		g2d.fillRect(0, 50, w, 50);
+		g2d.setPaint(Color.red);
+		g2d.fillRect(0, 100, w, 50);
+
+		BasicStroke bs1 = new BasicStroke(5, BasicStroke.CAP_ROUND, BasicStroke.JOIN_BEVEL);
+		g2d.setStroke(bs1);
+		g2d.setColor(new Color(247, 245, 116));
+		g2d.fillRect(w/2-500, 10, 1000, 125);
+		g2d.setPaint(Color.black);
+		g2d.drawRect(w/2-500, 10, 1000, 125);
+
+		g2d.setFont(new Font("Ebrima Bold", Font.PLAIN, 20));
+		g2d.setPaint(new Color(0, 204, 255));
+		g2d.drawString("Press 'Start' to return to Main Menu", 5, 20);
+		
+		g2d.dispose();
+	}
+
+	private void enterLeaderboardsScreen(Graphics g) {
+		Graphics2D g2d = (Graphics2D) g;
+		int w = getWidth();
+		int h = getHeight();
+
+		g2d.setColor(Color.YELLOW);
+		g2d.fillRect(0, 0, w, h);
+		g2d.setPaint(Color.blue);
+		g2d.fillRect(0, 0, w, 50);
+		g2d.setPaint(Color.green);
+		g2d.fillRect(0, 50, w, 50);
+		g2d.setPaint(Color.red);
+		g2d.fillRect(0, 100, w, 50);
+
+		BasicStroke bs1 = new BasicStroke(5, BasicStroke.CAP_ROUND, BasicStroke.JOIN_BEVEL);
+		g2d.setStroke(bs1);
+		g2d.setColor(new Color(247, 245, 116));
+		g2d.fillRect(w/2-500, 10, 1000, 125);
+		g2d.setPaint(Color.black);
+		g2d.drawRect(w/2-500, 10, 1000, 125);
+		g2d.dispose();
+	}
+
+	@Override
     public void paintComponent(Graphics g) {
 
         super.paintComponent(g);

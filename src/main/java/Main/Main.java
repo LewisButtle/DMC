@@ -48,7 +48,7 @@ public class Main extends JFrame {
     
     private void initMainMenu() {
         mainMenu = new Surface(0);
-        mainMenu.addKeyListener(new KeyAdapter() {
+        addKeyListener(new KeyAdapter() {
 			@Override
 			public void keyPressed(KeyEvent e) {
                 switch(e.getKeyCode()) {
@@ -56,22 +56,33 @@ public class Main extends JFrame {
                         mainMenu.setVisible(false);
                         remove(mainMenu);
                         add(calculatorMode);
+                        calculatorMode.setVisible(true);
                         calculatorMode.repaint();
                         calculatorMode.revalidate();
-                        System.out.println("test2");
                         break;
                     case '3':
-                        add(floatingNumbers);
+                        mainMenu.setVisible(false);
                         remove(mainMenu);
-                        System.out.println("test3");
+                        add(floatingNumbers);
+                        floatingNumbers.setVisible(true);
+                        floatingNumbers.repaint();
+                        floatingNumbers.revalidate();
                         break;
                     case '4':
-                        add(speedNumbers);
+                        mainMenu.setVisible(false);
                         remove(mainMenu);
+                        add(speedNumbers);
+                        speedNumbers.setVisible(true);
+                        speedNumbers.repaint();
+                        speedNumbers.revalidate();
                         break;
                     case '5':
-                        add(viewLeaderboards);
+                        mainMenu.setVisible(false);
                         remove(mainMenu);
+                        add(viewLeaderboards);
+                        viewLeaderboards.setVisible(true);
+                        viewLeaderboards.repaint();
+                        viewLeaderboards.revalidate();
                         break;
                     default:
                   }
@@ -81,7 +92,7 @@ public class Main extends JFrame {
 
     private void initCalculatorMode() {
         calculatorMode = new Surface(1);
-        calculatorMode.addKeyListener(new KeyAdapter() {
+        addKeyListener(new KeyAdapter() {
 			@Override
 			public void keyPressed(KeyEvent e) {
                 switch(e.getKeyCode()) {
@@ -112,7 +123,13 @@ public class Main extends JFrame {
                     
                         break;
                     case '9':
-                    
+                    System.out.println("HIYA");
+                    calculatorMode.setVisible(false);
+                    remove(calculatorMode);
+                    add(mainMenu);
+                    mainMenu.setVisible(true);
+                    mainMenu.repaint();
+                    mainMenu.revalidate();
                         break;
                     case '*':
                     
@@ -130,7 +147,7 @@ public class Main extends JFrame {
                     
                         break;
                     case 's':
-                    
+
                         break;
                     default:
                       // code block

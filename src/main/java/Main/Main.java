@@ -6,6 +6,7 @@ import java.awt.event.WindowEvent;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import javax.swing.JFrame;
+import javax.swing.KeyStroke;
 import javax.swing.Timer;
 
 public class Main extends JFrame {
@@ -53,36 +54,16 @@ public class Main extends JFrame {
 			public void keyPressed(KeyEvent e) {
                 switch(e.getKeyCode()) {
                     case '2':
-                        mainMenu.setVisible(false);
-                        remove(mainMenu);
-                        add(calculatorMode);
-                        calculatorMode.setVisible(true);
-                        calculatorMode.repaint();
-                        calculatorMode.revalidate();
+                        swapScreens(mainMenu, calculatorMode);
                         break;
                     case '3':
-                        mainMenu.setVisible(false);
-                        remove(mainMenu);
-                        add(floatingNumbers);
-                        floatingNumbers.setVisible(true);
-                        floatingNumbers.repaint();
-                        floatingNumbers.revalidate();
+                        swapScreens(mainMenu, floatingNumbers);
                         break;
                     case '4':
-                        mainMenu.setVisible(false);
-                        remove(mainMenu);
-                        add(speedNumbers);
-                        speedNumbers.setVisible(true);
-                        speedNumbers.repaint();
-                        speedNumbers.revalidate();
+                        swapScreens(mainMenu, speedNumbers);
                         break;
                     case '5':
-                        mainMenu.setVisible(false);
-                        remove(mainMenu);
-                        add(viewLeaderboards);
-                        viewLeaderboards.setVisible(true);
-                        viewLeaderboards.repaint();
-                        viewLeaderboards.revalidate();
+                        swapScreens(mainMenu, viewLeaderboards);
                         break;
                     default:
                   }
@@ -123,13 +104,7 @@ public class Main extends JFrame {
                     
                         break;
                     case '9':
-                    System.out.println("HIYA");
-                    calculatorMode.setVisible(false);
-                    remove(calculatorMode);
-                    add(mainMenu);
-                    mainMenu.setVisible(true);
-                    mainMenu.repaint();
-                    mainMenu.revalidate();
+                        swapScreens(calculatorMode, mainMenu);
                         break;
                     case '*':
                     
@@ -158,6 +133,8 @@ public class Main extends JFrame {
 
     private void initFloatingNumbers() {
         floatingNumbers = new Surface(2);
+        //floatingNumbers.getInputMap().put(KeyStroke.getKeyStroke("L"),
+        //System.out.println("HIYA"));
         floatingNumbers.addKeyListener(new KeyAdapter() {
 			@Override
 			public void keyPressed(KeyEvent e) {
@@ -406,7 +383,14 @@ public class Main extends JFrame {
         });
     }
    
-   
+    private void swapScreens(Surface first, Surface second) {
+        first.setVisible(false);
+        remove(first);
+        add(second);
+        second.setVisible(true);
+        second.repaint();
+        second.revalidate();
+    }
     public static void main(String[] args) {
 		
         EventQueue.invokeLater(new Runnable() {

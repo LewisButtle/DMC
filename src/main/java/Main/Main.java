@@ -5,6 +5,10 @@ import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+import javax.swing.AbstractAction;
 import javax.swing.JFrame;
 import javax.swing.KeyStroke;
 import javax.swing.Timer;
@@ -16,6 +20,8 @@ public class Main extends JFrame {
     Surface speedNumbers;
     Surface viewLeaderboards;
     Surface enterLeaderboards;
+
+    private static final String CHANGE_SCREENS = "change screens";
 
     public Main() {
         initUI();
@@ -46,343 +52,29 @@ public class Main extends JFrame {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         //remove(surface);
     }
-    
-    private void initMainMenu() {
-        mainMenu = new Surface(0);
-        addKeyListener(new KeyAdapter() {
-			@Override
-			public void keyPressed(KeyEvent e) {
-                switch(e.getKeyCode()) {
-                    case '2':
-                        swapScreens(mainMenu, calculatorMode);
-                        break;
-                    case '3':
-                        swapScreens(mainMenu, floatingNumbers);
-                        break;
-                    case '4':
-                        swapScreens(mainMenu, speedNumbers);
-                        break;
-                    case '5':
-                        swapScreens(mainMenu, viewLeaderboards);
-                        break;
-                    default:
-                  }
-			}
-        });
+
+    private class ChangeScreens extends AbstractAction {
+        Surface original;
+        Surface swapper;
+        ChangeScreens(Surface original, Surface swapper) {
+            this.original = original;
+            this.swapper = swapper;
+        }
+        
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            System.out.println("test");
+            original.setVisible(false);
+            remove(original);
+            add(swapper);
+            swapper.setVisible(true);
+            swapper.repaint();
+            revalidate();
+            // Same as the move method in the question code.
+            // Player can be detected by e.getSource() instead and call its own move method.
+        }
     }
 
-    private void initCalculatorMode() {
-        calculatorMode = new Surface(1);
-        addKeyListener(new KeyAdapter() {
-			@Override
-			public void keyPressed(KeyEvent e) {
-                switch(e.getKeyCode()) {
-                    case '0':
-                    break;
-                    case '1':
-                    
-                    break;
-                    case '2':
-                    
-                        break;
-                    case '3':
-                    
-                        break;
-                    case '4':
-                      
-                        break;
-                    case '5':
-                    
-                        break;
-                    case '6':
-
-                        break;
-                    case '7':
-                    
-                        break;      
-                    case '8':
-                    
-                        break;
-                    case '9':
-                        swapScreens(calculatorMode, mainMenu);
-                        break;
-                    case '*':
-                    
-                        break;
-                    case '+':
-                    
-                        break;
-                    case '-':
-                    
-                        break;
-                    case '=':
-                    
-                        break;
-                    case 'b':
-                    
-                        break;
-                    case 's':
-
-                        break;
-                    default:
-                      // code block
-                  }
-			}
-        });
-    }
-
-    private void initFloatingNumbers() {
-        floatingNumbers = new Surface(2);
-        //floatingNumbers.getInputMap().put(KeyStroke.getKeyStroke("L"),
-        //System.out.println("HIYA"));
-        floatingNumbers.addKeyListener(new KeyAdapter() {
-			@Override
-			public void keyPressed(KeyEvent e) {
-                switch(e.getKeyCode()) {
-                    case '0':
-                    
-                    break;
-                    case '1':
-                    
-                    break;
-                    case '2':
-                    
-                        break;
-                    case '3':
-                      
-                        break;
-                    case '4':
-                      
-                        break;
-                    case '5':
-                      
-                        break;
-                    case '6':
-
-                        break;
-                    case '7':
-                    
-                        break;      
-                    case '8':
-                    
-                        break;
-                    case '9':
-                    
-                        break;
-                    case '*':
-                    
-                        break;
-                    case '+':
-                    
-                        break;
-                    case '-':
-                    
-                        break;
-                    case '=':
-                    
-                        break;
-                    case 'b':
-                    
-                        break;
-                    case 's':
-                    
-                        break;
-                    default:
-                      // code block
-                  }
-			}
-        });
-    }
-
-    private void initSpeedNumbers() {
-        speedNumbers = new Surface(3);
-        speedNumbers.addKeyListener(new KeyAdapter() {
-			@Override
-			public void keyPressed(KeyEvent e) {
-                switch(e.getKeyCode()) {
-                    case '0':
-                    
-                    break;
-                    case '1':
-                    
-                    break;
-                    case '2':
-                    
-                        break;
-                    case '3':
-                      
-                        break;
-                    case '4':
-                      
-                        break;
-                    case '5':
-                      
-                        break;
-                    case '6':
-
-                        break;
-                    case '7':
-                    
-                        break;      
-                    case '8':
-                    
-                        break;
-                    case '9':
-                    
-                        break;
-                    case '*':
-                    
-                        break;
-                    case '+':
-                    
-                        break;
-                    case '-':
-                    
-                        break;
-                    case '=':
-                    
-                        break;
-                    case 'b':
-                    
-                        break;
-                    case 's':
-                    
-                        break;
-                    default:
-                      // code block
-                  }
-			}
-        });
-    }
-   
-    private void initViewLeaderboards() {
-        viewLeaderboards = new Surface(4);
-        addKeyListener(new KeyAdapter() {
-			@Override
-			public void keyPressed(KeyEvent e) {
-                switch(e.getKeyCode()) {
-                    case '0':
-                    
-                    break;
-                    case '1':
-                    
-                    break;
-                    case '2':
-                    
-                        break;
-                    case '3':
-                      
-                        break;
-                    case '4':
-                      
-                        break;
-                    case '5':
-                      
-                        break;
-                    case '6':
-
-                        break;
-                    case '7':
-                    
-                        break;      
-                    case '8':
-                    
-                        break;
-                    case '9':
-                    System.out.println("HIYA");
-                    viewLeaderboards.setVisible(false);
-                    remove(viewLeaderboards);
-                    add(mainMenu);
-                    mainMenu.setVisible(true);
-                    mainMenu.repaint();
-                    mainMenu.revalidate();
-                        break;
-                    case '*':
-                    
-                        break;
-                    case '+':
-                    
-                        break;
-                    case '-':
-                    
-                        break;
-                    case '=':
-                    
-                        break;
-                    case 'b':
-                    
-                        break;
-                    case 's':
-                    
-                        break;
-                    default:
-                      // code block
-                  }
-			}
-        });
-    }
-   
-    private void initEnterLeaderboards() {
-        enterLeaderboards = new Surface(5);
-        enterLeaderboards.addKeyListener(new KeyAdapter() {
-			@Override
-			public void keyPressed(KeyEvent e) {
-                switch(e.getKeyCode()) {
-                    case '0':
-                    
-                    break;
-                    case '1':
-                    
-                    break;
-                    case '2':
-                    
-                        break;
-                    case '3':
-                      
-                        break;
-                    case '4':
-                      
-                        break;
-                    case '5':
-                      
-                        break;
-                    case '6':
-
-                        break;
-                    case '7':
-                    
-                        break;      
-                    case '8':
-                    
-                        break;
-                    case '9':
-                    
-                        break;
-                    case '*':
-                    
-                        break;
-                    case '+':
-                    
-                        break;
-                    case '-':
-                    
-                        break;
-                    case '=':
-                    
-                        break;
-                    case 'b':
-                    
-                        break;
-                    case 's':
-                    
-                        break;
-                    default:
-                      // code block
-                  }
-			}
-        });
-    }
-   
     private void swapScreens(Surface first, Surface second) {
         first.setVisible(false);
         remove(first);
@@ -391,6 +83,41 @@ public class Main extends JFrame {
         second.repaint();
         second.revalidate();
     }
+
+    private void initMainMenu() {
+        mainMenu = new Surface(0);
+        mainMenu.getInputMap().put(KeyStroke.getKeyStroke("2"), CHANGE_SCREENS);
+        mainMenu.getActionMap().put(CHANGE_SCREENS, new ChangeScreens(mainMenu, calculatorMode));
+
+    }
+
+    private void initCalculatorMode() {
+        calculatorMode = new Surface(1);
+
+
+    }
+
+    private void initFloatingNumbers() {
+        floatingNumbers = new Surface(2);
+ 
+    }
+
+    private void initSpeedNumbers() {
+        speedNumbers = new Surface(3);
+
+    }
+   
+    private void initViewLeaderboards() {
+        viewLeaderboards = new Surface(4);
+
+    }
+   
+    private void initEnterLeaderboards() {
+        enterLeaderboards = new Surface(5);
+
+    }
+   
+
     public static void main(String[] args) {
 		
         EventQueue.invokeLater(new Runnable() {

@@ -4,28 +4,30 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
+import java.util.Arrays;
+import java.util.stream.IntStream;
 
 public class CalculatorSurface extends Surface {
 
+	ExpressionSetup expression;
+	String[] numbers = {"0","1","2","3","4","5","6","7","8","9"};
+	String[] operators = {"+","-","*","="};
+
 	public CalculatorSurface() {
+		expression = new ExpressionSetup();
 	}
 
 	@Override
 	public void keyPressed(KeyEvent e){
-		switch(e.getKeyChar()) {
-			case '2': 
-				Main.changeCard("calculator");
-				break;
-			case '3': 
-				Main.changeCard("float");
-				break;
-			case '4': 
-				Main.changeCard("speed");
-				break;
-			case '5': 
-				Main.changeCard("score");
-				break;
+		String input = String.valueOf(e.getKeyChar());
 
+		if (Arrays.asList(numbers).contains(input)) {
+			expression.addValue(input);
+			repaint();
+		}
+		else if (Arrays.asList(operators).contains(input)) {
+			expression.addOperator(input);
+			repaint();
 		}
 	}
 
@@ -58,7 +60,7 @@ public class CalculatorSurface extends Surface {
 
 		//Text
 		g2d.setFont(new Font("Ebrima Bold", Font.PLAIN, 80));
-		g2d.drawString("EXPRESSION PLACEHOLDER", w/2-700, h/2+25);
+		g2d.drawString(expression.getExpression(), w/2-700, h/2+25);
 
 		g2d.setFont(new Font("Ebrima Bold", Font.PLAIN, 20));
 		g2d.setPaint(new Color(0, 204, 255));

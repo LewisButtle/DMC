@@ -12,10 +12,21 @@ public class SpeedNumSurface extends Surface {
 
 	@Override
 	public void keyPressed(KeyEvent e){
-		System.out.println("Main was provided the key: " + e);
-		if(e.getKeyChar() == 'e'){
-			// TODO: WARN - must remember class hash name
-			Main.changeCard("score");
+		//System.out.println("Main was provided the key: " + e);
+		switch(e.getKeyChar()) {
+			case '2': 
+				Main.changeCard("calculator");
+				break;
+			case '3': 
+				Main.changeCard("float");
+				break;
+			case '4': 
+				Main.changeCard("speed");
+				break;
+			case '5': 
+				Main.changeCard("score");
+				break;
+
 		}
 	}
 

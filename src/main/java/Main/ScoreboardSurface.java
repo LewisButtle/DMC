@@ -13,7 +13,21 @@ public class ScoreboardSurface extends Surface {
 
 	@Override
 	public void keyPressed(KeyEvent e){
-		System.out.println("Scoreboard was given " + e);
+		switch(e.getKeyChar()) {
+			case '2': 
+				Main.changeCard("calculator");
+				break;
+			case '3': 
+				Main.changeCard("float");
+				break;
+			case '4': 
+				Main.changeCard("speed");
+				break;
+			case '5': 
+				Main.changeCard("score");
+				break;
+
+		}
 	}
 
 	@Override

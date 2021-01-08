@@ -5,40 +5,62 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
 import java.util.Arrays;
+import java.util.Timer;
+import java.util.TimerTask;
 
 public class FNumSurface extends Surface {
 
 	ExpressionSetup expression;
 	String exp;
-	String[] numbers = {"0","1","2","3","4","5","6","7","8","9"};
-	String[] operators = {"+","-","*"};
-	String[] equals = {"="};
+	boolean gameStarted;
 
 	public FNumSurface() {
 		expression = new ExpressionSetup();
 		exp = "";
+		gameStarted = false;
+		new Timer().scheduleAtFixedRate(new increment(), 0, 1000);
 	}
 
 	@Override
-	public void keyPressed(KeyEvent e){
+	public void keyPressed(KeyEvent e) {
 		String input = String.valueOf(e.getKeyChar());
-
-		if (expression.check(input)) {
-			exp = expression.add(input);
-			repaint();
+		if (!gameStarted) {
+			switch(input) {
+				case "b":
+					expression.reset();
+					exp = "";
+					Main.changeCard("main");
+				break;
+				case "s":
+				gameStarted = true;
+				break;
+			}
 		}
-		
-		switch(input) {
-			case "b":
-				expression.reset();
-				exp = "";
+		else {
+			if (expression.check(input)) {
+				exp = expression.add(input);
 				repaint();
-			break;
-			case "s":
-				expression.reset();
-				exp = "";
-				Main.changeCard("main");
-			break;
+			}
+
+			switch(input) {
+				case "b":
+					expression.reset();
+					exp = "";
+					repaint();
+				break;
+				case "s":
+					expression.reset();
+					exp = "";
+					Main.changeCard("main");
+				break;
+			}
+		}
+	}
+
+	public class increment extends TimerTask {
+		@Override
+		public void run() {
+			System.out.println("hiya!!");
 		}
 	}
 

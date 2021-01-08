@@ -57,7 +57,7 @@ public class ExpressionSetup {
 			evalCheck = true;
 			return getValue();
         }
-        return "";
+        return expression;
     }
 
     public boolean check(String input) {

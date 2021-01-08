@@ -34,11 +34,23 @@ public class CalculatorSurface extends Surface {
 			exp = expression.getExpression();
 			repaint();
 		}
-		else if (Arrays.asList(equals).contains(input) && expression.getReady()) {
-			System.out.println(e.getKeyChar() + "HIT!!!");
+		else if (input == "=" && expression.getReady()) {
 			expression.evaluateCurrent();
+			expression.setEval();
 			exp = expression.getValue();
 			repaint();
+		}
+		switch(input) {
+			case "b":
+				expression.reset();
+				exp = "";
+				repaint();
+			break;
+			case "s":
+				expression.reset();
+				exp = "";
+				Main.changeCard("main");
+			break;
 		}
 	}
 

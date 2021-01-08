@@ -21,6 +21,8 @@ public class ExpressionSetup {
     //An array of allowed operators
     final String[] operators = {"+","-","*"};
 
+    final String[] equals = {"="};
+
     //Instantiator, sets original value and expression to 1.
     public ExpressionSetup() {
         expression = "1";
@@ -40,15 +42,31 @@ public class ExpressionSetup {
         return value;
     }
 
-    // Get the ready state of the expression, is it ready to be evaluated?
-    public boolean getReady() {
-        return ready;
+    //adds a new input, decides what to do with it
+    public String add(String input) {
+        if (Arrays.asList(numbers).contains(input)) {
+			addValue(input);
+			return expression;
+		}
+		else if (Arrays.asList(operators).contains(input)) {
+			addOperator(input);
+			return expression;
+		}
+		else if (Arrays.asList(equals).contains(input) && ready) {
+			evaluateCurrent();
+			evalCheck = true;
+			return getValue();
+        }
+        return "";
     }
 
-    // Sets the check if an evaluation has just occurred.
-    public void setEval() {
-        evalCheck = true;
+    public boolean check(String input) {
+        if (Arrays.asList(numbers).contains(input) || Arrays.asList(operators).contains(input) || Arrays.asList(equals).contains(input)) {
+            return true;
+        }
+        return false;
     }
+
 
     //Resets the expression
     public void reset() {

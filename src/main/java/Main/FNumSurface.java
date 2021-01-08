@@ -4,28 +4,41 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
+import java.util.Arrays;
 
 public class FNumSurface extends Surface {
 
+	ExpressionSetup expression;
+	String exp;
+	String[] numbers = {"0","1","2","3","4","5","6","7","8","9"};
+	String[] operators = {"+","-","*"};
+	String[] equals = {"="};
+
 	public FNumSurface() {
+		expression = new ExpressionSetup();
+		exp = "";
 	}
 
 	@Override
 	public void keyPressed(KeyEvent e){
-		switch(e.getKeyChar()) {
-			case '2': 
-				Main.changeCard("calculator");
-				break;
-			case '3': 
-				Main.changeCard("float");
-				break;
-			case '4': 
-				Main.changeCard("speed");
-				break;
-			case '5': 
-				Main.changeCard("score");
-				break;
+		String input = String.valueOf(e.getKeyChar());
 
+		if (expression.check(input)) {
+			exp = expression.add(input);
+			repaint();
+		}
+		
+		switch(input) {
+			case "b":
+				expression.reset();
+				exp = "";
+				repaint();
+			break;
+			case "s":
+				expression.reset();
+				exp = "";
+				Main.changeCard("main");
+			break;
 		}
 	}
 
@@ -54,6 +67,7 @@ public class FNumSurface extends Surface {
 
 		g2d.setFont(new Font("Ebrima Bold", Font.PLAIN, 80));
 		g2d.drawString("TIMER", 25, 100);
+		g2d.drawString(exp, 375, 100);
 		g2d.drawString("SCORE", w-285, 100);
 		
 

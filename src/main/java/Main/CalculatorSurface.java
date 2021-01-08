@@ -24,22 +24,11 @@ public class CalculatorSurface extends Surface {
 	public void keyPressed(KeyEvent e){
 		String input = String.valueOf(e.getKeyChar());
 
-		if (Arrays.asList(numbers).contains(input)) {
-			expression.addValue(input);
-			exp = expression.getExpression();
+		if (expression.check(input)) {
+			exp = expression.add(input);
 			repaint();
 		}
-		else if (Arrays.asList(operators).contains(input)) {
-			expression.addOperator(input);
-			exp = expression.getExpression();
-			repaint();
-		}
-		else if (input == "=" && expression.getReady()) {
-			expression.evaluateCurrent();
-			expression.setEval();
-			exp = expression.getValue();
-			repaint();
-		}
+		
 		switch(input) {
 			case "b":
 				expression.reset();

@@ -10,11 +10,14 @@ import java.util.stream.IntStream;
 public class CalculatorSurface extends Surface {
 
 	ExpressionSetup expression;
+	String exp;
 	String[] numbers = {"0","1","2","3","4","5","6","7","8","9"};
-	String[] operators = {"+","-","*","="};
+	String[] operators = {"+","-","*"};
+	String[] equals = {"="};
 
 	public CalculatorSurface() {
 		expression = new ExpressionSetup();
+		exp = "";
 	}
 
 	@Override
@@ -23,10 +26,18 @@ public class CalculatorSurface extends Surface {
 
 		if (Arrays.asList(numbers).contains(input)) {
 			expression.addValue(input);
+			exp = expression.getExpression();
 			repaint();
 		}
 		else if (Arrays.asList(operators).contains(input)) {
 			expression.addOperator(input);
+			exp = expression.getExpression();
+			repaint();
+		}
+		else if (Arrays.asList(equals).contains(input) && expression.getReady()) {
+			System.out.println(e.getKeyChar() + "HIT!!!");
+			expression.evaluateCurrent();
+			exp = expression.getValue();
 			repaint();
 		}
 	}
@@ -60,7 +71,7 @@ public class CalculatorSurface extends Surface {
 
 		//Text
 		g2d.setFont(new Font("Ebrima Bold", Font.PLAIN, 80));
-		g2d.drawString(expression.getExpression(), w/2-700, h/2+25);
+		g2d.drawString(exp, w/2-700, h/2+25);
 
 		g2d.setFont(new Font("Ebrima Bold", Font.PLAIN, 20));
 		g2d.setPaint(new Color(0, 204, 255));

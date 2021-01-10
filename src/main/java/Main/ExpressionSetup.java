@@ -16,6 +16,8 @@ public class ExpressionSetup {
     private boolean ready;
     //Detects when an expression has just been evaluated. Used to stop user overwriting answer.
     private boolean evalCheck;
+    //Number of expressions used in the current calculation.
+    private int expressionScore;
     //An array of allowed numbers
     final String[] numbers = {"0","1","2","3","4","5","6","7","8","9"};
     //An array of allowed operators
@@ -23,38 +25,40 @@ public class ExpressionSetup {
 
     final String[] equals = {"="};
 
+    
+
     //Instantiator, sets original value and expression to 1.
     public ExpressionSetup() {
         expression = "1";
         value = "1";
         ready = true;
         evalCheck = false;
-    }
-    
-    //Gets the current expression for displaying in graphics
-    public String getExpression() {
-        return expression;
+        expressionScore = 0;
     }
 
     //Gets the current actual value of the expression
     public String getValue() {
-        expression = value;
         return value;
+    }
+
+    public int getExpressionSize() {
+        return expressionScore;
     }
 
     //adds a new input, decides what to do with it
     public String add(String input) {
         if (Arrays.asList(numbers).contains(input)) {
-			addValue(input);
-			return expression;
+            addValue(input);
+            return expression;
 		}
 		else if (Arrays.asList(operators).contains(input)) {
-			addOperator(input);
-			return expression;
+            addOperator(input);
+            return expression;
 		}
 		else if (Arrays.asList(equals).contains(input) && ready) {
 			evaluateCurrent();
-			evalCheck = true;
+            evalCheck = true;
+            expression = value;
 			return getValue();
         }
         return expression;
@@ -67,6 +71,9 @@ public class ExpressionSetup {
         return false;
     }
 
+    public void resetExpressionCounter(){
+        expressionScore = 0;
+    }
 
     //Resets the expression
     public void reset() {
@@ -97,6 +104,9 @@ public class ExpressionSetup {
             expression = expression.substring(0, expression.length() - 1) + newOperator; 
         }
         else {
+            if(expressionScore < 500) {
+                expressionScore+=100;
+            }
             evaluateCurrent();
             expression += newOperator;
         }

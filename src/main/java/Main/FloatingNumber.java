@@ -8,6 +8,7 @@ public class FloatingNumber {
     int value;
     //Colour of the floating number
     Color colour;
+    int colourValue;
     //Coordination of the floating number
     int ypos;
     int xpos;
@@ -26,7 +27,7 @@ public class FloatingNumber {
         xpos = xStart;
         xposOriginal = xStart;
         barrier = randomNumber(10, 70);
-
+        colourValue = colourtype;
         //To set colour, depending on int value of colour (0 for green, 1 for amber, 2 for red)
         switch(colourtype) {
             //green selected
@@ -43,14 +44,8 @@ public class FloatingNumber {
             colour = Color.ORANGE;
             yspeed = 2;
             score = 1000;
-            if (randomNumber(1, 2) == 1) {
-                value = randomNumber(-100, -10);
-                xspeed = 1;
-            }
-            else{
-                value = randomNumber(51, 100);
-                xspeed = -1;
-            }
+            value = randomNumber(51, 100);
+            xspeed = -1;
             break;
 
             //red selected
@@ -59,14 +54,8 @@ public class FloatingNumber {
             yspeed = 1;
             score = 2500;
             //50% chance to set value as negative or positive
-            if (randomNumber(1, 2) == 1) {
-                value = randomNumber(-300, -100);
-                xspeed = -1;
-            }
-            else{
-                value = randomNumber(100, 300);
-                xspeed = 1;
-            }
+            value = randomNumber(100, 300);
+            xspeed = 1;
             break;
         }
     }
@@ -79,8 +68,16 @@ public class FloatingNumber {
         return xpos;
     }
 
+    public int RetrieveXPosOriginal(){
+        return xposOriginal;
+    }
+
     public int retrieveScore() {
         return score;
+    }
+
+    public int retrieveColourValue() {
+        return colourValue;
     }
 
     public int retrieveValue() {

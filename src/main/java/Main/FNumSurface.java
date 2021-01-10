@@ -21,8 +21,6 @@ public class FNumSurface extends Surface {
 	boolean gameStarted;
 	boolean gameOver;
 
-
-
 	public FNumSurface() {
 		expression = new ExpressionSetup();
 		exp = "";
@@ -69,7 +67,7 @@ public class FNumSurface extends Surface {
 					if (currentNumber.retrieveStringValue().equals(expression.getValue())) {
 						score += (currentNumber.retrieveScore() - expression.getExpressionSize());
 						expression.resetExpressionCounter();
-						floatingnumbers.remove(currentNumber);
+						replace(currentNumber);
 						break;
 					}
 				}
@@ -121,13 +119,18 @@ public class FNumSurface extends Surface {
 				for (FloatingNumber currentNumber: floatingnumbers) {
 					currentNumber.increaseHeight();
 					if (currentNumber.retrieveYPosition() < 220) {
-						floatingnumbers.remove(currentNumber);
+						replace(currentNumber);
 						break;
 					}
 				}
 				repaint();
 			}
 		}
+	}
+
+	public void replace(FloatingNumber replacedNumber){
+		floatingnumbers.add(new FloatingNumber(replacedNumber.RetrieveXPosOriginal(), getHeight(), replacedNumber.retrieveColourValue()));
+		floatingnumbers.remove(replacedNumber);
 	}
 
 	@Override

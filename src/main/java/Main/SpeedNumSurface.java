@@ -4,28 +4,96 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
+import java.util.Timer;
+import java.util.TimerTask;
 
 public class SpeedNumSurface extends Surface {
 
+	ExpressionSetup expression;
+	int timeRemaining;
+	int spread;
+	int score;
+	String time;
+	String exp;
+	boolean gameStarted;
+	boolean gameOver;
+
 	public SpeedNumSurface() {
+		expression = new ExpressionSetup();
+		exp = "";
+		gameStarted = false;
+		gameOver = false;
+		timeRemaining = 61;
+		time = "01:00";
+		score = 0;
 	}
 
 	@Override
-	public void keyPressed(KeyEvent e){
-		//System.out.println("Main was provided the key: " + e);
-		switch(e.getKeyChar()) {
-			case '2': 
-				Main.changeCard("calculator");
+	public void keyPressed(KeyEvent e) {
+		String input = String.valueOf(e.getKeyChar());
+		if (!gameStarted) {
+			switch(input) {
+				case "b":
+					expression.reset();
+					exp = "";
+					Main.changeCard("main");
 				break;
-			case '3': 
-				Main.changeCard("float");
+				case "s":
+				gameStarted = true;
+				new Timer().scheduleAtFixedRate(new timer(), 0, 1000);
+				repaint();
 				break;
-			case '4': 
-				Main.changeCard("speed");
+			}
+		}
+
+		else if (gameStarted && !gameOver) {
+			if (expression.check(input)) {
+				exp = expression.add(input);
+
+				if (currentNumber.retrieveStringValue().equals(expression.getValue())) {
+					score += (currentNumber.retrieveScore() - expression.getExpressionSize());
+					expression.resetExpressionCounter();
+					replace(currentNumber);
+					break;
+				}
+
+				repaint();
+			}
+
+			switch(input) {
+				case "b":
+					expression.reset();
+					exp = "";
+					repaint();
 				break;
-			case '5': 
-				Main.changeCard("score");
+			}
+		}
+
+
+		else if (gameOver) {
+			switch(input) {
+				case "s":
+					expression.reset();
+					exp = "";
+					Main.changeCard("main");
 				break;
+			}
+			repaint();
+		}
+	}
+
+	public class timer extends TimerTask {
+		@Override
+		public void run() {
+			if (timeRemaining > 0 ) {
+				timeRemaining--;
+				time = String.format("%02d:%02d", timeRemaining / 60, timeRemaining % 60);
+				repaint();
+			}
+			else {
+			gameOver = true;
+			repaint();
+			}
 
 		}
 	}
@@ -51,6 +119,28 @@ public class SpeedNumSurface extends Surface {
 		g2d.fillRect(w/2-500, 10, 1000, 125);
 		g2d.setPaint(Color.black);
 		g2d.drawRect(w/2-500, 10, 1000, 125);
+		
+
+		if (!gameStarted) {
+			g2d.setPaint(Color.black);
+			g2d.setFont(new Font("Ebrima Bold", Font.PLAIN, 65));
+			g2d.setColor(new Color(247, 245, 116));
+			g2d.fillRect(100, 200, w-200, h-250);
+			g2d.setColor(Color.black);
+			g2d.drawString("Use Single digits to make the speed number,", 125, 250);
+			g2d.drawString("For each number you make, you gain 5 seconds!", 125, 450);
+			g2d.drawString("Each number is worth 100 points.", 125, 550);
+			g2d.drawString("Press Start when you are ready!", 350, 850);
+		}
+		else if (gameStarted && !gameOver) {
+			g2d.setColor(currentNumber.retrieveColour());
+			g2d.drawString(currentNumber.retrieveStringValue(), currentNumber.retrieveXPosition(), currentNumber.retrieveYPosition());
+
+		}
+		else if (gameOver) {
+			g2d.setColor(new Color(247, 245, 116));
+			g2d.fillRect(100, 200, w-200, h-250);
+		}
 		g2d.dispose();
 	}
 

@@ -119,6 +119,7 @@ public class FNumSurface extends Surface {
 				for (FloatingNumber currentNumber: floatingnumbers) {
 					currentNumber.increaseHeight();
 					if (currentNumber.retrieveYPosition() < 220) {
+						score -= 100;
 						replace(currentNumber);
 						break;
 					}

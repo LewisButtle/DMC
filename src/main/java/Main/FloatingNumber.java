@@ -26,38 +26,31 @@ public class FloatingNumber {
         ypos = yStart;
         xpos = xStart;
         xposOriginal = xStart;
-        barrier = randomNumber(10, 70);
         colourValue = colourtype;
         //To set colour, depending on int value of colour (0 for green, 1 for amber, 2 for red)
         switch(colourtype) {
             //green selected
             case 0:
-            colour = Color.green;
-            yspeed = 3;
-            value = randomNumber(10, 50);
-            score = 500;
-            xspeed = 1;
+            setNumber(Color.green, 3, 500, randomNumber(10, 50), 1);
             break;
-
             //amber selected
             case 1:
-            colour = Color.ORANGE;
-            yspeed = 2;
-            score = 1000;
-            value = randomNumber(51, 100);
-            xspeed = -1;
+            setNumber(Color.orange, 2, 1000, randomNumber(51, 100), -1);
             break;
-
             //red selected
             case 2:
-            colour = Color.red;
-            yspeed = 1;
-            score = 2500;
-            //50% chance to set value as negative or positive
-            value = randomNumber(100, 300);
-            xspeed = 1;
+            setNumber(Color.red, 1, 2500, randomNumber(100, 300), 1);
             break;
         }
+    }
+
+    private void setNumber(Color colourset, int yspeedset, int scoreset, int valueset, int xspeedset) {
+        colour = colourset;
+        yspeed = yspeedset;
+        score = scoreset;
+        value = valueset;
+        xspeed = xspeedset;
+        barrier = randomNumber(10, 70);
     }
 
     public int retrieveYPosition() {

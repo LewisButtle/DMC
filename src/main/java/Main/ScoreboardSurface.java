@@ -37,7 +37,7 @@ public class ScoreboardSurface extends Surface {
 		int w = getWidth();
 		int h = getHeight();
 
-		g2d.setColor(Color.RED);
+		g2d.setColor(Color.yellow);
 		g2d.fillRect(0, 0, w, h);
 		g2d.setPaint(Color.blue);
 		g2d.fillRect(0, 0, w, 50);

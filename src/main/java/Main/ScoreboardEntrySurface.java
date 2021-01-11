@@ -81,7 +81,6 @@ public class ScoreboardEntrySurface extends Surface {
 			}
 		}
 		repaint();
-
 	}
 
 	@Override

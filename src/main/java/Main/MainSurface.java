@@ -4,8 +4,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
-import java.util.Timer;
-import java.util.TimerTask;
+
 
 public class MainSurface extends Surface {
 
@@ -26,7 +25,7 @@ public class MainSurface extends Surface {
 				Main.changeCard("speed");
 				break;
 			case '5': 
-				Main.changeCard("score");
+				Main.changeCard("enterscore");
 				break;
 
 		}

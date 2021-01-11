@@ -39,7 +39,7 @@ public class FloatingNumber {
             break;
             //red selected
             case 2:
-            setNumber(Color.red, 1, 2500, randomNumber(100, 300), 1);
+            setNumber(Color.red, 1, 2500, randomNumber(100, 500), 1);
             break;
         }
     }

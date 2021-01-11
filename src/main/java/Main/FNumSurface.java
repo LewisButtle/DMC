@@ -16,7 +16,6 @@ public class FNumSurface extends Surface {
 	int timeRemaining;
 	int spread;
 	int score;
-	String time;
 	String exp;
 	boolean gameStarted;
 	boolean gameOver;
@@ -26,8 +25,7 @@ public class FNumSurface extends Surface {
 		exp = "";
 		gameStarted = false;
 		gameOver = false;
-		timeRemaining = 121;
-		time = "02:00";
+		timeRemaining = 120;
 		score = 0;
 	}
 
@@ -49,11 +47,11 @@ public class FNumSurface extends Surface {
 					Main.changeCard("main");
 				break;
 				case "s":
-				makeNumbers(7);
-				gameStarted = true;
-				new Timer().scheduleAtFixedRate(new timer(), 0, 1000);
-				new Timer().scheduleAtFixedRate(new floating(), 0, 100);
-				repaint();
+					makeNumbers(7);
+					gameStarted = true;
+					new Timer().scheduleAtFixedRate(new timer(), 0, 1000);
+					new Timer().scheduleAtFixedRate(new floating(), 0, 100);
+					repaint();
 				break;
 			}
 		}
@@ -101,7 +99,6 @@ public class FNumSurface extends Surface {
 		public void run() {
 			if (timeRemaining > 0 ) {
 				timeRemaining--;
-				time = String.format("%02d:%02d", timeRemaining / 60, timeRemaining % 60);
 				repaint();
 			}
 			else {
@@ -159,7 +156,7 @@ public class FNumSurface extends Surface {
 		g2d.drawRect(w/2-500, 10, 1000, 125);
 
 		g2d.setFont(new Font("Ebrima Bold", Font.PLAIN, 100));
-		g2d.drawString(time, 25, 110);
+		g2d.drawString(String.format("%02d:%02d", timeRemaining / 60, timeRemaining % 60), 25, 110);
 		g2d.drawString(exp, 375, 100);
 		g2d.drawString(String.valueOf(score), w-285, 100);
 		
@@ -169,7 +166,8 @@ public class FNumSurface extends Surface {
 			g2d.setColor(new Color(247, 245, 116));
 			g2d.fillRect(100, 200, w-200, h-250);
 			g2d.setColor(Color.black);
-			g2d.drawString("Use Single digits to make the floating numbers,", 125, 250);
+			g2d.drawRect(100, 200, w-200, h-250);
+			g2d.drawString("Use Single digits to make the floating numbers,", 125, 255);
 			g2d.drawString("before they hit the top of the screen!", 250, 350);
 			g2d.drawString("More points are awarded for shorter expressions.", 125, 450);
 			g2d.drawString("A number's colour represents its points worth.", 125, 550);

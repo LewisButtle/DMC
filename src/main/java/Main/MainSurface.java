@@ -25,7 +25,7 @@ public class MainSurface extends Surface {
 				Main.changeCard("speed");
 				break;
 			case '5': 
-				Main.changeCard("enterscore");
+				Main.changeCard("score");
 				break;
 
 		}

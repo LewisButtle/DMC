@@ -10,7 +10,7 @@ import java.sql.*;
 public class Main extends JFrame {
 
 	public static DatabaseScores database = new DatabaseScores();
-	
+
 	private static final Surface mainSurface = new MainSurface();
 	private static final Surface scoreSurface = new ScoreboardSurface();
 	private static final Surface scoreEnterSurface = new ScoreboardEntrySurface();
@@ -29,8 +29,6 @@ public class Main extends JFrame {
 		setSize(1750, 1000);
 		setLocationRelativeTo(null);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-
-		System.out.println(Main.database.readDatabase("FloatScores").get(0).first);
 
 		// Create a card layout
 		surfaceMap.put("main", mainSurface);

@@ -14,17 +14,21 @@ public class FNumSurface extends Surface {
 	int score;
 	String exp;
 	boolean gameStarted;
-	boolean gameOver;
 	Timer timing;
 	Timer floating;
 
 	public FNumSurface() {
+		timing = new Timer();
+		floating = new Timer();
+		timing.scheduleAtFixedRate(new ClockTimer(), 0, 1000);
+		floating.scheduleAtFixedRate(new Floating(), 0, 100);
+
 		expression = new ExpressionSetup();
 		exp = "";
 		gameStarted = false;
-		gameOver = false;
 		timeRemaining = 120;
 		score = 0;
+
 	}
 
 	public void makeNumbers(int amount) {
@@ -46,15 +50,13 @@ public class FNumSurface extends Surface {
 					reset();
 					makeNumbers(7);
 					gameStarted = true;
-					new Timer().scheduleAtFixedRate(new timer(), 0, 1000);
-					new Timer().scheduleAtFixedRate(new floating(), 0, 100);
 					repaint();
 				break;
 			}
 		}
 
 
-		else if (gameStarted && !gameOver) {
+		else if (gameStarted) {
 			if (expression.check(input)) {
 				exp = expression.add(input);
 
@@ -79,25 +81,26 @@ public class FNumSurface extends Surface {
 		}
 	}
 
-	public class timer extends TimerTask {
+	public class ClockTimer extends TimerTask {
 		@Override
 		public void run() {
-			if (timeRemaining > 0 ) {
-				timeRemaining--;
-				repaint();
-			}
-			else {
-				gameOverInstructions();
-				cancel();
-			}
+			if(gameStarted){
+				if (timeRemaining > 0 ) {
+					timeRemaining--;
+					repaint();
+				}
+				else {
+					gameOverInstructions();
+				}
 
+			}
 		}
 	}
 
-	public class floating extends TimerTask {
+	public class Floating extends TimerTask {
 		@Override
 		public void run() {
-			if (!gameOver) {
+			if(gameStarted){
 				for (FloatingNumber currentNumber: floatingnumbers) {
 					currentNumber.increaseHeight();
 					if (currentNumber.retrieveYPosition() < 220) {
@@ -108,19 +111,16 @@ public class FNumSurface extends Surface {
 				}
 				repaint();
 			}
-			else {
-				cancel();
-			}
 		}
 	}
 
 	public void reset(){
+
 		expression.reset();
 		exp = "";
 		floatingnumbers.clear();
 		gameStarted = false;
-		gameOver = false;
-		timeRemaining = 4;
+		timeRemaining = 120;
 		score = 0;
 	}
 
@@ -130,16 +130,15 @@ public class FNumSurface extends Surface {
 	}
 
 	public void gameOverInstructions() {
-		gameOver = true;
 		if(Main.database.checkTopTen("FloatScores", score)) {
 			Main.currentScore[0] = "FloatScores";
 			Main.currentScore[1] = String.valueOf(score);
-			reset();
 			Main.changeCard("enterscore");
 		}
 		else {
 			Main.changeCard("score");
 		}
+		reset();
 	}
 
 	@Override
@@ -184,7 +183,7 @@ public class FNumSurface extends Surface {
 			g2d.drawString("(High to low: red, amber green)", 350, 700);
 			g2d.drawString("Press Start when you are ready!", 350, 850);
 		}
-		else if (gameStarted && !gameOver) {
+		else if (gameStarted) {
 			for (FloatingNumber currentNumber: floatingnumbers) {
 				g2d.setColor(currentNumber.retrieveColour());
 				g2d.drawString(currentNumber.retrieveStringValue(), currentNumber.retrieveXPosition(), currentNumber.retrieveYPosition());

@@ -60,7 +60,7 @@ public class DatabaseScores {
 		try {
 			Connection con=DriverManager.getConnection(connectionString, user, pass);
 			Statement stmt=con.createStatement();  
-			ResultSet rs=stmt.executeQuery("SELECT COUNT(score) FROM "+table+" WHERE score>"+String.valueOf(score)); 
+			ResultSet rs=stmt.executeQuery("SELECT COUNT(score) FROM "+table+" WHERE score>="+String.valueOf(score)); 
 			rs.next();
 			if (rs.getInt(1)>10) {
 				con.close();

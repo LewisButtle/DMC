@@ -11,7 +11,6 @@ public class MainSurface extends Surface {
 
 	@Override
 	public void keyPressed(KeyEvent e){
-		System.out.println("Main was provided the key: " + e);
 		switch(e.getKeyChar()) {
 			case '2': 
 				Main.changeCard("calculator");

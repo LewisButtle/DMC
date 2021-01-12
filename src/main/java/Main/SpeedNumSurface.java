@@ -16,13 +16,14 @@ public class SpeedNumSurface extends Surface {
 	int increase;
 	String exp;
 	boolean gameStarted;
-	boolean gameOver;
+	Timer timing;
 
 	public SpeedNumSurface() {
+		timing = new Timer();
+		timing.scheduleAtFixedRate(new timer(), 0, 1000);
 		expression = new ExpressionSetup();
 		exp = "";
 		gameStarted = false;
-		gameOver = false;
 		timeRemaining = 60;
 		score = 0;
 		increase = 0;
@@ -41,13 +42,12 @@ public class SpeedNumSurface extends Surface {
 					reset();
 					gameStarted = true;
 					currentNumber = randomNumber(10, 20);
-					new Timer().scheduleAtFixedRate(new timer(), 0, 1000);
 					repaint();
 				break;
 			}
 		}
 
-		else if (gameStarted && !gameOver) {
+		else if (gameStarted) {
 			if (expression.check(input)) {
 				exp = expression.add(input);
 				if (currentNumber == Integer.parseInt(expression.getValue())) {
@@ -72,15 +72,15 @@ public class SpeedNumSurface extends Surface {
 	public class timer extends TimerTask {
 		@Override
 		public void run() {
-			if (timeRemaining > 0 ) {
-				timeRemaining--;
-				repaint();
+			if (gameStarted){
+				if (timeRemaining > 0 ) {
+					timeRemaining--;
+					repaint();
+				}
+				else {
+					gameOverInstructions();
+				}
 			}
-			else {
-				gameOverInstructions();
-				cancel();
-			}
-
 		}
 	}
 
@@ -88,13 +88,11 @@ public class SpeedNumSurface extends Surface {
 		expression.reset();
 		exp = "";
 		gameStarted = false;
-		gameOver = false;
-		timeRemaining = 4;
+		timeRemaining = 60;
 		score = 0;
 	}
 
 	public void gameOverInstructions() {
-		gameOver = true;
 		if(Main.database.checkTopTen("SpeedScores", score)) {
 			Main.currentScore[0] = "SpeedScores";
 			Main.currentScore[1] = String.valueOf(score);
@@ -104,6 +102,7 @@ public class SpeedNumSurface extends Surface {
 		else {
 			Main.changeCard("score");
 		}
+		reset();
 	}
 	@Override
 	public void paintComponent(Graphics g) {
@@ -147,15 +146,11 @@ public class SpeedNumSurface extends Surface {
 			g2d.drawString("Each number is worth 100 points.", 350, 550);
 			g2d.drawString("Press Start when you are ready!", 350, 850);
 		}
-		else if (gameStarted && !gameOver) {
+		else if (gameStarted) {
 			g2d.setFont(new Font("Ebrima Bold", Font.PLAIN, 400));
 			g2d.setColor(new Color(randomNumber(0,255), randomNumber(0,255), 250));
 			g2d.drawString(String.valueOf(currentNumber), w/2-300, h/2+200);
 
-		}
-		else if (gameOver) {
-			g2d.setColor(new Color(247, 245, 116));
-			g2d.fillRect(100, 200, w-200, h-250);
 		}
 		g2d.dispose();
 	}

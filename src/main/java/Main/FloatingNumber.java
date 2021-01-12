@@ -86,7 +86,7 @@ public class FloatingNumber {
     }
 
     public void increaseHeight() {
-        if(xpos > xposOriginal+barrier || xpos < xposOriginal-barrier) {
+        if(xpos > xposOriginal + barrier || xpos < xposOriginal - barrier) {
             xspeed *= -1;
         }
         xpos += xspeed;

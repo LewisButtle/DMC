@@ -32,6 +32,8 @@ public class ScoreboardSurface extends Surface {
 	public void paintComponent(Graphics g) {
 		super.paintComponent(g);
 		Graphics2D g2d = (Graphics2D) g;
+		
+		updateScores();
 		int w = getWidth();
 		int h = getHeight();
 
@@ -78,8 +80,8 @@ public class ScoreboardSurface extends Surface {
 		g2d.setPaint(new Color(0, 204, 255));
 		g2d.drawString("Press 'Start' to return to Main Menu", 5, 20);
 
-		for (int x = 0; x<2; x++) {
-			for (int y = 0; y<10; y++) {
+		for (int y = 0; y<10; y++) {
+			for (int x = 0; x<2; x++) {
 				
 				g2d.setColor(new Color(247, 245, 116));
 				g2d.fillRect(w/10+(x*200), 300+(y*50), 150, 30);
@@ -88,9 +90,11 @@ public class ScoreboardSurface extends Surface {
 				g2d.drawRect(w/10+(x*200), 300+(y*50), 150, 30);
 				g2d.drawRect(2*w/3+(x*200), 300+(y*50), 150, 30);
 				g2d.setPaint(Color.blue);
-				g2d.drawString("test1", w/10+(x*200)+5, 325+(y*50));
-				g2d.drawString("test2", 2*w/3+(x*200)+5, 325+(y*50));
 			}
+			g2d.drawString(floatScores.get(y).first, w/10+5, 325+(y*50));
+			g2d.drawString(floatScores.get(y).second.toString(), w/10+205, 325+(y*50));
+			g2d.drawString(speedScores.get(y).first.toString(), 2*w/3+5, 325+(y*50));
+			g2d.drawString(speedScores.get(y).second.toString(), 2*w/3+205, 325+(y*50));
 		}
 
 		g2d.dispose();

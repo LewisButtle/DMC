@@ -42,7 +42,7 @@ public class ExpressionSetup {
     }
 
     public int getExpressionSize() {
-        return expressionScore;
+        return expressionScore-100;
     }
 
     //adds a new input, decides what to do with it

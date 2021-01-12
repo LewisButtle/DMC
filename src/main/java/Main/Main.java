@@ -2,14 +2,15 @@ package Main;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.util.HashMap;
-import java.util.Map;
+import java.sql.*;  
 
 public class Main extends JFrame {
 
+	public static DatabaseScores database = new DatabaseScores();
+	
 	private static final Surface mainSurface = new MainSurface();
 	private static final Surface scoreSurface = new ScoreboardSurface();
 	private static final Surface scoreEnterSurface = new ScoreboardEntrySurface();
@@ -20,12 +21,16 @@ public class Main extends JFrame {
 	private static String currentCard = "main";
 	private static JPanel cards = new JPanel(new CardLayout());
 	HashMap<String, Surface> surfaceMap = new HashMap<String, Surface>();
+	
+	public static String[] currentScore = {"",""};
 
 	public Main(){
 		setTitle("Dance Mat Calculator");
 		setSize(1750, 1000);
 		setLocationRelativeTo(null);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
+		System.out.println(Main.database.readDatabase("FloatScores").get(0).first);
 
 		// Create a card layout
 		surfaceMap.put("main", mainSurface);
@@ -45,7 +50,6 @@ public class Main extends JFrame {
 
 		// Switch to the main layout
 		changeCard("main");
-		System.out.println(currentCard);
 
 		// Add the card layout
 		add(cards);

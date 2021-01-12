@@ -1,11 +1,7 @@
 package Main;
 
-import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
-import java.util.Arrays;
-import java.util.stream.IntStream;
 
 public class CalculatorSurface extends Surface {
 

@@ -1,8 +1,6 @@
 package Main;
 
-import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
 import java.util.SplittableRandom;
 import java.util.Timer;
@@ -36,11 +34,11 @@ public class SpeedNumSurface extends Surface {
 		if (!gameStarted) {
 			switch(input) {
 				case "b":
-					expression.reset();
-					exp = "";
+					reset();
 					Main.changeCard("main");
 				break;
 				case "s":
+					reset();
 					gameStarted = true;
 					currentNumber = randomNumber(10, 20);
 					new Timer().scheduleAtFixedRate(new timer(), 0, 1000);
@@ -69,17 +67,6 @@ public class SpeedNumSurface extends Surface {
 				break;
 			}
 		}
-
-		else if (gameOver) {
-			switch(input) {
-				case "s":
-					expression.reset();
-					exp = "";
-					Main.changeCard("main");
-				break;
-			}
-			repaint();
-		}
 	}
 
 	public class timer extends TimerTask {
@@ -90,13 +77,34 @@ public class SpeedNumSurface extends Surface {
 				repaint();
 			}
 			else {
-			gameOver = true;
-			repaint();
+				gameOverInstructions();
+				cancel();
 			}
 
 		}
 	}
 
+	public void reset(){
+		expression.reset();
+		exp = "";
+		gameStarted = false;
+		gameOver = false;
+		timeRemaining = 4;
+		score = 0;
+	}
+
+	public void gameOverInstructions() {
+		gameOver = true;
+		if(Main.database.checkTopTen("SpeedScores", score)) {
+			Main.currentScore[0] = "SpeedScores";
+			Main.currentScore[1] = String.valueOf(score);
+			reset();
+			Main.changeCard("enterscore");
+		}
+		else {
+			Main.changeCard("score");
+		}
+	}
 	@Override
 	public void paintComponent(Graphics g) {
 		super.paintComponent(g);

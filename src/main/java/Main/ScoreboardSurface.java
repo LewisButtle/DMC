@@ -1,14 +1,21 @@
 package Main;
 
-import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
+import java.util.ArrayList;
 
 public class ScoreboardSurface extends Surface {
 
+	ArrayList<Tuple<String,Integer>> floatScores;
+	ArrayList<Tuple<String,Integer>> speedScores;
+
 	public ScoreboardSurface(){
+		updateScores();
+	}
+
+	public void updateScores(){
+		floatScores = Main.database.readDatabase("FloatScores");
+		speedScores = Main.database.readDatabase("SpeedScores");
 	}
 
 	@Override
@@ -71,8 +78,6 @@ public class ScoreboardSurface extends Surface {
 		g2d.setPaint(new Color(0, 204, 255));
 		g2d.drawString("Press 'Start' to return to Main Menu", 5, 20);
 
-
-		
 		for (int x = 0; x<2; x++) {
 			for (int y = 0; y<10; y++) {
 				

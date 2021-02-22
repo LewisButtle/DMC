@@ -34,7 +34,6 @@ public class DatabaseScores {
 			System.out.println(e);
 		}  
 		return results;
-		
 	}
 	
 	public void insertScore(String table, String name, int score) {

@@ -89,16 +89,6 @@ public class MainSurface extends Surface {
 		g2d.setPaint(Color.blue);
 		g2d.fillRect(200, -200, 100, 700);
 
-		/*
-		g2d.setPaint(Color.black);
-        Random r = new Random();
-        for (int i = 0; i < 2000; i++) {
-
-            int x = Math.abs(r.nextInt()) % w;
-            int y = Math.abs(r.nextInt()) % h;
-            g2d.drawLine(x, y, x, y);
-		}
-		*/
 		g2d.dispose();
 	}
 

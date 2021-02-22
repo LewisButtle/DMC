@@ -23,8 +23,6 @@ public class ExpressionSetup {
     //An array of allowed operators
     final String[] operators = {"+","-","*"};
 
-    final String[] equals = {"="};
-
     
 
     //Instantiator, sets original value and expression to 1.
@@ -55,7 +53,7 @@ public class ExpressionSetup {
             addOperator(input);
             return expression;
 		}
-		else if (Arrays.asList(equals).contains(input) && ready) {
+		else if (input.equals("=") && ready) {
 			evaluateCurrent();
             evalCheck = true;
             expression = value;
@@ -65,7 +63,7 @@ public class ExpressionSetup {
     }
 
     public boolean check(String input) {
-        if (Arrays.asList(numbers).contains(input) || Arrays.asList(operators).contains(input) || Arrays.asList(equals).contains(input)) {
+        if (Arrays.asList(numbers).contains(input) || Arrays.asList(operators).contains(input) || input.equals("=")) {
             return true;
         }
         return false;

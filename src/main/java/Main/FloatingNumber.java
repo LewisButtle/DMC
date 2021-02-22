@@ -94,12 +94,7 @@ public class FloatingNumber {
     }
 
     public boolean checkAnswer(int answer) {
-        if (value == answer) {
-            return true;
-        }
-        else {
-            return false;
-        }
+        return value == answer;
     }
 
     private int randomNumber(int min, int max){

@@ -5,7 +5,7 @@ import java.awt.*;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.util.HashMap;
-import java.sql.*;  
+import com.fazecast.jSerialComm.*;
 
 public class Main extends JFrame {
 
@@ -59,6 +59,71 @@ public class Main extends JFrame {
 				surfaceMap.get(currentCard).keyPressed(e);
 			}
 		});
+
+		SerialPort comPort = SerialPort.getCommPort("COM4");
+		comPort.setComPortParameters(9600, 8, 1, 0);
+		//comPort.setComPortTimeouts(SerialPort.TIMEOUT_READ_BLOCKING, 0, 0);
+
+		if(comPort.openPort()){
+			System.out.println("Port initialized");
+		}
+		else{
+			System.out.println("Port Unavailable - Unable to link to Dance Mat hardware.");
+		}
+
+		comPort.addDataListener(new SerialPortDataListener() {
+
+		   @Override
+		   public int getListeningEvents() { return SerialPort.LISTENING_EVENT_DATA_AVAILABLE; }
+
+		   @Override
+		   public void serialEvent(SerialPortEvent event)
+		   {
+			if (event.getEventType() != SerialPort.LISTENING_EVENT_DATA_AVAILABLE) {
+				return;
+			}
+			byte[] newData = new byte[comPort.bytesAvailable()];
+			comPort.readBytes(newData, newData.length);
+			
+			char dmcInput = new String(newData).charAt(0);
+			dmcInputKey(dmcInput);
+		   }
+		});
+	}
+
+	public static void dmcInputKey(char input){
+		int keyCode = 0;
+
+		switch(input) {
+			case '+': keyCode = KeyEvent.VK_PLUS; break;
+			case '0': keyCode = KeyEvent.VK_0; break;
+			case '1': keyCode = KeyEvent.VK_1; break;
+			case '-': keyCode = KeyEvent.VK_MINUS; break;
+
+			case '2': keyCode = KeyEvent.VK_2; break;
+			case '3': keyCode = KeyEvent.VK_3; break;	
+			case '4': keyCode = KeyEvent.VK_4; break;
+			case '5': keyCode = KeyEvent.VK_5; break;
+
+			case '6': keyCode = KeyEvent.VK_6; break;
+			case '7': keyCode = KeyEvent.VK_7; break;
+			case '8': keyCode = KeyEvent.VK_8; break;
+			case '9': keyCode = KeyEvent.VK_9; break;
+			
+			case '*': keyCode = KeyEvent.VK_ASTERISK; break;
+			case 'b': keyCode = KeyEvent.VK_B; break;
+			case 's': keyCode = KeyEvent.VK_S; break;
+			case '=': keyCode = KeyEvent.VK_EQUALS; break;
+		}
+		System.out.println(input);
+		try{
+			Robot typer = new Robot();
+			typer.keyPress(keyCode);
+			typer.keyRelease(keyCode);
+		}
+		catch(AWTException ex){
+			System.out.println("Error with input.");
+		}
 	}
 
 	public static void changeCard(String name){

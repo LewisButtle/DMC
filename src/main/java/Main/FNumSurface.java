@@ -58,6 +58,12 @@ public class FNumSurface extends Surface {
 
 		else if (gameStarted) {
 			if (expression.check(input)) {
+				if(input == "p") {
+					input = "+";
+				}
+				else if (input == "x") {
+					input = "*";
+				}
 				exp = expression.add(input);
 
 				for (FloatingNumber currentNumber: floatingnumbers) {

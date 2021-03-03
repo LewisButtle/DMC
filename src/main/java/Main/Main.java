@@ -6,6 +6,7 @@ import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.util.HashMap;
 import com.fazecast.jSerialComm.*;
+import java.util.Arrays;
 
 public class Main extends JFrame {
 
@@ -17,6 +18,9 @@ public class Main extends JFrame {
 	private static final Surface fNumSurface = new FNumSurface();
 	private static final Surface speedNumSurface = new SpeedNumSurface();
 	private static final Surface calculatorSurface = new CalculatorSurface();
+
+
+	final char[] inputs = {'0','1','2','3','4','5','6','7','8','9','p','-','x','=','s','b'};
 
 	private static String currentCard = "main";
 	private static JPanel cards = new JPanel(new CardLayout());
@@ -86,7 +90,10 @@ public class Main extends JFrame {
 			comPort.readBytes(newData, newData.length);
 			
 			char dmcInput = new String(newData).charAt(0);
-			dmcInputKey(dmcInput);
+			
+			if(new String(inputs).contains(String.valueOf(dmcInput))){
+				dmcInputKey(dmcInput);
+			}
 		   }
 		});
 	}
@@ -95,7 +102,7 @@ public class Main extends JFrame {
 		int keyCode = 0;
 
 		switch(input) {
-			case '+': keyCode = KeyEvent.VK_PLUS; break;
+			case 'p': keyCode = KeyEvent.VK_P; break;
 			case '0': keyCode = KeyEvent.VK_0; break;
 			case '1': keyCode = KeyEvent.VK_1; break;
 			case '-': keyCode = KeyEvent.VK_MINUS; break;
@@ -110,12 +117,13 @@ public class Main extends JFrame {
 			case '8': keyCode = KeyEvent.VK_8; break;
 			case '9': keyCode = KeyEvent.VK_9; break;
 			
-			case '*': keyCode = KeyEvent.VK_ASTERISK; break;
+			case 'x': keyCode = KeyEvent.VK_X; break;
 			case 'b': keyCode = KeyEvent.VK_B; break;
 			case 's': keyCode = KeyEvent.VK_S; break;
 			case '=': keyCode = KeyEvent.VK_EQUALS; break;
 		}
 		System.out.println(input);
+		System.out.println(keyCode);
 		try{
 			Robot typer = new Robot();
 			typer.keyPress(keyCode);

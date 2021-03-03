@@ -49,6 +49,13 @@ public class SpeedNumSurface extends Surface {
 
 		else if (gameStarted) {
 			if (expression.check(input)) {
+				if(input == "p") {
+					input = "+";
+				}
+	
+				else if (input == "x") {
+					input = "*";
+				}
 				exp = expression.add(input);
 				if (currentNumber == Integer.parseInt(expression.getValue())) {
 					score += 100;

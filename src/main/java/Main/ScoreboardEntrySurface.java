@@ -10,10 +10,10 @@ public class ScoreboardEntrySurface extends Surface {
 	HashMap<String, String> alphaMap = new HashMap<String, String>();
 	String name;
 	boolean nextPage;
-	String[][] controls = {{"+","0","1","-"},
+	String[][] controls = {{"p","0","1","-"},
 							{"2","3","4","5"},
 							{"6","7","8","9"},
-							{"*","b","s","="}};
+							{"x","b","s","="}};
 
 	String[][] alpha1 = {{"A","B","C","D"},
 						 {"E","F","G","H"},

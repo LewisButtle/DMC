@@ -21,7 +21,7 @@ public class ExpressionSetup {
     //An array of allowed numbers
     final String[] numbers = {"0","1","2","3","4","5","6","7","8","9"};
     //An array of allowed operators
-    final String[] operators = {"p","-","x"};
+    final String[] operators = {"+","-","*"};
 
     
 
@@ -50,14 +50,6 @@ public class ExpressionSetup {
             return expression;
 		}
 		else if (Arrays.asList(operators).contains(input)) {
-            if(input == "p") {
-                input = "+";
-            }
-
-            else if (input == "x") {
-                input = "*";
-            }
-            
             addOperator(input);
             return expression;
 		}

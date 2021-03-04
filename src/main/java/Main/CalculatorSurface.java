@@ -18,13 +18,6 @@ public class CalculatorSurface extends Surface {
 		String input = String.valueOf(e.getKeyChar());
 
 		if (expression.check(input)) {
-			if(input == "p") {
-                input = "+";
-            }
-
-            else if (input == "x") {
-                input = "*";
-            }
 			exp = expression.add(input);
 			repaint();
 		}

@@ -102,7 +102,7 @@ public class Main extends JFrame {
 		int keyCode = 0;
 
 		switch(input) {
-			case 'p': keyCode = KeyEvent.VK_P; break;
+			case 'p': keyCode = KeyEvent.VK_ADD; break;
 			case '0': keyCode = KeyEvent.VK_0; break;
 			case '1': keyCode = KeyEvent.VK_1; break;
 			case '-': keyCode = KeyEvent.VK_MINUS; break;
@@ -117,7 +117,7 @@ public class Main extends JFrame {
 			case '8': keyCode = KeyEvent.VK_8; break;
 			case '9': keyCode = KeyEvent.VK_9; break;
 			
-			case 'x': keyCode = KeyEvent.VK_X; break;
+			case 'x': keyCode = KeyEvent.VK_MULTIPLY; break;
 			case 'b': keyCode = KeyEvent.VK_B; break;
 			case 's': keyCode = KeyEvent.VK_S; break;
 			case '=': keyCode = KeyEvent.VK_EQUALS; break;

@@ -13,7 +13,7 @@ public class DatabaseScores {
 	String pass;
 	
 	public DatabaseScores() {
-		connectionString = "jdbc:mysql://localhost:3306/scores";
+		connectionString = "jdbc:mysql://localhost:3306/scores?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC";
         user = "root";
         pass = "tigers10";
 	}

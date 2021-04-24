@@ -24,7 +24,7 @@ public class SpeedNumSurface extends Surface {
 		expression = new ExpressionSetup();
 		exp = "";
 		gameStarted = false;
-		timeRemaining = 60;
+		timeRemaining = 120;
 		score = 0;
 		increase = 0;
 	}
@@ -88,7 +88,7 @@ public class SpeedNumSurface extends Surface {
 		expression.reset();
 		exp = "";
 		gameStarted = false;
-		timeRemaining = 60;
+		timeRemaining = 30;
 		score = 0;
 	}
 

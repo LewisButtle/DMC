@@ -120,7 +120,7 @@ public class FNumSurface extends Surface {
 		exp = "";
 		floatingnumbers.clear();
 		gameStarted = false;
-		timeRemaining = 120;
+		timeRemaining = 30;
 		score = 0;
 	}
 

@@ -5,6 +5,7 @@ import com.udojava.evalex.Expression;
 import java.util.ArrayList;
 import java.util.Arrays;
 
+//Class used to store and handle all interactions with expressions
 public class ExpressionSetup {
     //to store the entire expression for display
     private String expression;
@@ -39,20 +40,24 @@ public class ExpressionSetup {
         return value;
     }
 
+    //Return the score after calculating the size of the expression, for the floating numbers game
     public int getExpressionSize() {
         return expressionScore-100;
     }
 
     //adds a new input, decides what to do with it
     public String add(String input) {
+        //If the input is a number...
         if (Arrays.asList(numbers).contains(input)) {
             addValue(input);
             return expression;
 		}
+        //If the input is an operator...
 		else if (Arrays.asList(operators).contains(input)) {
             addOperator(input);
             return expression;
 		}
+        //If the input is '=' and the expression is ready, evaluate the expression.
 		else if (input.equals("=") && ready) {
 			evaluateCurrent();
             evalCheck = true;
@@ -62,6 +67,7 @@ public class ExpressionSetup {
         return expression;
     }
 
+    //Check if a character is able to be processed by the expression class.
     public boolean check(String input) {
         if (Arrays.asList(numbers).contains(input) || Arrays.asList(operators).contains(input) || input.equals("=")) {
             return true;
@@ -69,6 +75,7 @@ public class ExpressionSetup {
         return false;
     }
 
+    //Reset the count of how large the expression is
     public void resetExpressionCounter(){
         expressionScore = 0;
     }
@@ -90,7 +97,6 @@ public class ExpressionSetup {
             else {
                 expression += newVal;
             }
-            
             current.set(2, newVal);
             ready = true;
         }
@@ -109,6 +115,7 @@ public class ExpressionSetup {
             expression += newOperator;
         }
         current.set(1, newOperator);
+        //Show that the expression is not ready to be evaluated, as it ends in an operator
         ready = false;
         evalCheck = false;
     }
@@ -123,7 +130,6 @@ public class ExpressionSetup {
         if (10000 < Integer.parseInt(value) || Integer.parseInt(value) < -10000) {
             reset();
         }
-        //TODO Produce a message for going out of bounds
         current.set(0, value);
         current.set(1, "*");
         current.set(2, "1");

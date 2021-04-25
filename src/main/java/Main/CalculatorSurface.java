@@ -3,31 +3,38 @@ package Main;
 import java.awt.*;
 import java.awt.event.KeyEvent;
 
+//Surface for the calculator mode screen
 public class CalculatorSurface extends Surface {
 
-	ExpressionSetup expression;
-	String exp;
+	//The technical and string expression
+	private ExpressionSetup expression;
+	private String exp;
 
+	//Initialise the expression
 	public CalculatorSurface() {
 		expression = new ExpressionSetup();
 		exp = "";
 	}
 
+	//Controls
 	@Override
 	public void keyPressed(KeyEvent e){
 		String input = String.valueOf(e.getKeyChar());
 
+		//If the input is mathematical, add it to the expression
 		if (expression.check(input)) {
 			exp = expression.add(input);
 			repaint();
 		}
-
+		//If the input is 'back' or 'start'..
 		switch(input) {
+			//Back resets the current expression
 			case "b":
 				expression.reset();
 				exp = "";
 				repaint();
 			break;
+			//'Start' will reset the screen, and switch to the main menu surface.
 			case "s":
 				expression.reset();
 				exp = "";
@@ -36,6 +43,7 @@ public class CalculatorSurface extends Surface {
 		}
 	}
 
+	//Graphics
 	@Override
 	public void paintComponent(Graphics g) {
 		super.paintComponent(g);
